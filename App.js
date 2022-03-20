@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet, Text, View, SafeAreaView, StatusBar, Platform } from 'react-native';
+import Comp from './components/Comp';
+import { colors } from './utils/colors';
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>sallam</Text>
-      <StatusBar style='auto' />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Comp />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    backgroundColor: colors.bg,
     alignItems: 'center',
     justifyContent: 'center'
   }
 });
+
+//  SafeAreaView not work in android
