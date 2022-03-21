@@ -3,26 +3,28 @@ import { StyleSheet, Text, View, SafeAreaView, StatusBar, Platform } from 'react
 import CategoriesPage from './Pages/CategoriesPage';
 import CategoryPage from './Pages/CategoryPage';
 import { colors } from './Constants/colors';
-import { basicCategories } from './Constants/categories';
+import initCategories from './Constants/categories';
 
 export default function App() {
-  const [categories, setCategories] = React.useState(basicCategories);
-  const [selectedCat, setSelectCat] = React.useState();
+  const [categories, setCategories] = React.useState(initCategories);
+  const [currentCategory, setCurrentCategory] = React.useState();
+
+  //  add a category to the list
   const addCategory = newCategory => {
     if (!categories.includes(newCategory)) {
-      setCategories(categoriesList => [...categoriesList, newCategory]);
+      setCategories(categoriesList => [...categoriesList, { title: newCategory }]);
     }
   };
   return (
     <SafeAreaView style={styles.container}>
-      {!selectedCat ? (
+      {!currentCategory ? (
         <CategoriesPage
           addCategory={addCategory}
           categories={categories}
-          setSelectCat={setSelectCat}
+          setCurrentCategory={setCurrentCategory}
         />
       ) : (
-        <CategoryPage setSelectCat={setSelectCat} />
+        <CategoryPage category={currentCategory} setCurrentCategory={setCurrentCategory} />
       )}
     </SafeAreaView>
   );
